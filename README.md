@@ -15,6 +15,8 @@ Additionally, it shows the differences in initialization process for each of the
 
 # To use...
 
+I ran this using Node 4.2.1, and Mongo 3.0.7.
+
 This is how you install:
 ```
 git clone https://github.com/crueber/mongo-adapter-comparison.git
