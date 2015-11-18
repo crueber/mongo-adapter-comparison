@@ -13,8 +13,8 @@ module.exports = runner = ->
 
     # Connect to Mongo. No Models.
     MongoClient.connect "mongodb://localhost:27017/tempmongodb", (err, db) ->
-      console.log "Direct MongoDB started. #{new Date() - start}ms".cyan
-      start = new Date()
+      checkpoint = new Date()
+      console.log "Direct MongoDB started. #{checkpoint - start}ms".cyan
 
       found_user = null
       user = db.collection('user')
@@ -28,7 +28,7 @@ module.exports = runner = ->
         console.log JSON.stringify(users[0])
         user.deleteOne({_id: found_user._id })
       .then ->
-        console.log "Direct MongoDB CRUD completed in #{new Date() - start}ms".cyan
+        console.log "Direct MongoDB CRUD completed in #{new Date() - checkpoint}ms (#{new Date() - start}ms total)".cyan
         db.close()
         done()
       .catch reject

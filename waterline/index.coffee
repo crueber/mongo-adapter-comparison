@@ -30,7 +30,7 @@ module.exports = runner = ->
       autoUpdatedAt: false
       attributes:
         name: { type: 'string', required: true }
-        age: { type: 'integer', required: true, min: 18 }
+        age: { type: 'integer', required: true }
         status: { type: 'string', required: true }
         groups: { type: 'array' }
     waterline.loadCollection WUser
@@ -40,8 +40,8 @@ module.exports = runner = ->
       reject(err) if err
       WUser = db.collections.user
 
-      console.log "Waterline connected. #{new Date() - start}ms".cyan
-      start = new Date()
+      checkpoint = new Date()
+      console.log "Waterline connected. #{checkpoint - start}ms".cyan
 
       found_user = null
       creater = WUser.create(user_json)
@@ -53,7 +53,7 @@ module.exports = runner = ->
         console.log JSON.stringify(users[0])
         WUser.destroy(id: users[0].id)
       .then ->
-        console.log "Waterline CRUD completed in #{new Date() - start}ms".cyan
+        console.log "Waterline CRUD completed in #{new Date() - checkpoint}ms (#{new Date() - start}ms total)".cyan
         done()
       .catch reject
 

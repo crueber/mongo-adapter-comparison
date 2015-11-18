@@ -12,8 +12,8 @@ module.exports = runner = ->
 
     # Create a Model for Mongoose.
     userSchema = new mongoose.Schema
-      name: { type: String, lowercase: true}
-      age: { type: Number, required: true }
+      name: { type: String }
+      age: { type: Number }
       status: String
       groups: Array
     MUser = mongoose.model('User', userSchema)
@@ -23,8 +23,8 @@ module.exports = runner = ->
     mongoose.connection.on 'connected', ->
       found_user = null
 
-      console.log "Mongoose started. #{new Date() - start}ms".cyan
-      start = new Date()
+      checkpoint = new Date()
+      console.log "Mongoose started. #{checkpoint - start}ms".cyan
 
       # Alternate: new MUser(user_json).save()
       Promise.resolve()
@@ -38,7 +38,7 @@ module.exports = runner = ->
         console.log JSON.stringify(user)
         MUser.remove(_id: user.id).exec()
       .then -> 
-        console.log "Mongoose CRUD completed in #{new Date() - start}ms".cyan
+        console.log "Mongoose CRUD completed in #{new Date() - checkpoint}ms (#{new Date() - start}ms total)".cyan
         done()
       .catch reject
 

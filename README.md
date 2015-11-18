@@ -5,6 +5,14 @@ During a comparison debacle, I decided to just pull together a little repo that 
 
 Additionally, it shows the differences in initialization process for each of the different libraries, which can be very useful when setting up a new app.
 
+# A few things of note...
+
+* Mongo URLs were utilized, even where individual configuration was offered.
+* Promises were used in every single library, as the community has coalesced around it.
+* Each test is executed in isolation, as I didn't want any to be competing for clock time with the others, asynchronously.
+* Only a single test of CRUD is done in each adapter, at this time.
+* No validations were used, as it needs to be as close to apples-to-apples as possible.
+
 # Dependencies
 
 Just for reference, as dependencies can be a useful reference.
