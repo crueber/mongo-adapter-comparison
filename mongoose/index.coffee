@@ -18,7 +18,7 @@ module.exports = runner = ->
       groups: Array
     MUser = mongoose.model('User', userSchema)
 
-    # Get connected to MongoDB, and watch for the connection to open.
+    # Configuration and connection to MongoDB
     mongoose.connect('mongodb://localhost/tempmongoose')
     mongoose.connection.on 'connected', ->
       found_user = null
@@ -26,7 +26,7 @@ module.exports = runner = ->
       checkpoint = new Date()
       console.log "Mongoose started. #{checkpoint - start}ms".cyan
 
-      # Alternate: new MUser(user_json).save()
+      # Run the CRUD tests.
       Promise.resolve()
       .then creater = -> new MUser(user_json).save()
       .then reader = (user) -> MUser.findById(user.id).exec()

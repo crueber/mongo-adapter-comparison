@@ -11,13 +11,15 @@ module.exports = runner = ->
   new Promise (done, reject) ->
     start = new Date()
 
-    # Connect to Mongo. No Models.
+    # Configuration and connection to Mongo. No Models.
     MongoClient.connect "mongodb://localhost:27017/tempmongodb", (err, db) ->
       checkpoint = new Date()
       console.log "Direct MongoDB started. #{checkpoint - start}ms".cyan
 
       found_user = null
       user = db.collection('user')
+
+      # Run the CRUD tests.
       creater = user.insertOne(user_json)
       .then reader = (result) -> user.find(name: user_json.name).toArray()
       .then updater = (users) -> 

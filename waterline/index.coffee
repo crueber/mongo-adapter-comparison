@@ -43,6 +43,7 @@ module.exports = runner = ->
       checkpoint = new Date()
       console.log "Waterline connected. #{checkpoint - start}ms".cyan
 
+      # Run the CRUD tests.
       found_user = null
       creater = WUser.create(user_json)
       .then reader = (user) -> WUser.findOne().where(id: user.id)
