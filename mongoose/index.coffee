@@ -1,12 +1,16 @@
 require('colors')
 mongoose = require 'mongoose'
 
+# JSON to dump in to the DB
 user_json = name: "bob", age: 44, status: "D", groups: [ "money" ]
+# JSON to update the original json structure with.
 update_to = name: "bobo"
 
 module.exports = runner = ->
   new Promise (done, reject) ->
     start = new Date()
+
+    # Create a Model for Mongoose.
     userSchema = new mongoose.Schema
       name: { type: String, lowercase: true}
       age: { type: Number, required: true }
@@ -14,6 +18,7 @@ module.exports = runner = ->
       groups: Array
     MUser = mongoose.model('User', userSchema)
 
+    # Get connected to MongoDB, and watch for the connection to open.
     mongoose.connect('mongodb://localhost/tempmongoose')
     mongoose.connection.on 'connected', ->
       found_user = null

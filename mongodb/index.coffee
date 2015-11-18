@@ -1,7 +1,9 @@
 require('colors')
 MongoClient = require('mongodb').MongoClient
 
+# JSON to dump in to the DB
 user_json = name: "bob", age: 44, status: "D", groups: [ "money" ]
+# JSON to update the original json structure with.
 update_to = name: "bobo"
 
 module.exports = runner = ->
@@ -9,6 +11,7 @@ module.exports = runner = ->
   new Promise (done, reject) ->
     start = new Date()
 
+    # Connect to Mongo. No Models.
     MongoClient.connect "mongodb://localhost:27017/tempmongodb", (err, db) ->
       console.log "Direct MongoDB started. #{new Date() - start}ms".cyan
       start = new Date()

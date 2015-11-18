@@ -2,24 +2,29 @@ require('colors')
 Waterline = require 'waterline'
 sailsmongo = require 'sails-mongo'
 
+# JSON to dump in to the DB
 user_json = name: "bob", age: 44, status: "D", groups: [ "money" ]
+# JSON to update the original json structure with.
 update_to = name: "bobo"
 
 module.exports = runner = ->
   new Promise (done, reject) ->
     start = new Date()
+
+    # General configuraiton for Waterline.
     waterline_config = 
       connections:
         mongo: 
           adapter: 'sails-mongo'
           url: 'mongodb://localhost/tempwaterline'
       adapters: { "sails-mongo": sailsmongo }
-
     waterline = new Waterline()
+
+    # Create a model for our Waterline adapter.
     WUser = Waterline.Collection.extend
       tableName: 'users'
       identity: 'user'
-      schema: true
+      schema: false
       connection: 'mongo'
       autoCreatedAt: false
       autoUpdatedAt: false
@@ -30,6 +35,7 @@ module.exports = runner = ->
         groups: { type: 'array' }
     waterline.loadCollection WUser
 
+    # Open the connection to the defined database.
     waterline.initialize waterline_config, (err, db) ->
       reject(err) if err
       WUser = db.collections.user

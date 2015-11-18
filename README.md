@@ -3,6 +3,8 @@
 
 During a comparison debacle, I decided to just pull together a little repo that compared a basic CRUD run at MongoDB via the three primary methods that make sense in node. Those methods are MongoDB (direct), Mongoose, and Waterline. Each of those is progressively more abstract, and I felt it was worth fully understanding how utilizing each, independently, would be useful. Also, it would make it easier to do some generalized profiling of how much faster/slower each library is.
 
+Additionally, it shows the differences in initialization process for each of the different libraries, which can be very useful when setting up a new app.
+
 # Dependencies
 
 Just for reference, as dependencies can be a useful reference.
