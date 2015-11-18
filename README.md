@@ -13,6 +13,22 @@ Additionally, it shows the differences in initialization process for each of the
 * Only a single test of CRUD is done in each adapter, at this time.
 * No validations were used, as it needs to be as close to apples-to-apples as possible.
 
+# To use...
+
+This is how you install:
+```
+git clone https://github.com/crueber/mongo-adapter-comparison.git
+cd mongo-adapter-comparison
+npm install
+```
+
+`node index.js` or `node index.js --serial` will run the standard serial tests.
+
+`node index.js --parallel` will run the tests in parallel.
+
+**Note!** Make sure you have MongoDB installed before running the tests. Or they'll fail spectacularly. If you're running on something other than localhost:27017, you'll need to edit the files to reflect that.
+
+
 # Dependencies
 
 Just for reference, as dependencies can be a useful reference.
