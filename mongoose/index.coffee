@@ -42,4 +42,4 @@ module.exports = runner = ->
         done()
       .catch reject
 
-runner() if !module.parent
+runner().catch console.err if !module.parent
