@@ -15,13 +15,13 @@ module.exports = runner = ->
 
       found_user = null
       user = db.collection('user')
-      user.insertOne(user_json)
-      .then (result) -> user.find(name: user_json.name).toArray()
-      .then (users) -> 
+      creater = user.insertOne(user_json)
+      .then reader = (result) -> user.find(name: user_json.name).toArray()
+      .then updater = (users) -> 
         console.log JSON.stringify(found_user = users[0])
         user.updateOne({ _id: found_user._id }, { $set: update_to })
       .then (result) -> user.find(_id: found_user._id).toArray()
-      .then (users) -> 
+      .then deleter = (users) -> 
         console.log JSON.stringify(users[0])
         user.deleteOne({_id: found_user._id })
       .then ->

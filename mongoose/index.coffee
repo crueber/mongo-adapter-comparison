@@ -23,13 +23,13 @@ module.exports = runner = ->
 
       # Alternate: new MUser(user_json).save()
       Promise.resolve()
-      .then -> new MUser(user_json).save()
-      .then (user) -> MUser.findById(user.id).exec()
-      .then (user) -> 
+      .then creater = -> new MUser(user_json).save()
+      .then reader = (user) -> MUser.findById(user.id).exec()
+      .then updater = (user) -> 
         console.log JSON.stringify(found_user = user)
         MUser.update({_id: found_user.id}, update_to).exec()
       .then -> MUser.findById(found_user.id).exec()
-      .then (user) -> 
+      .then deleter = (user) -> 
         console.log JSON.stringify(user)
         MUser.remove(_id: user.id).exec()
       .then -> 

@@ -38,12 +38,12 @@ module.exports = runner = ->
       start = new Date()
 
       found_user = null
-      WUser.create(user_json)
-      .then (user) -> WUser.findOne().where(id: user.id)
-      .then (user) -> 
+      creater = WUser.create(user_json)
+      .then reader = (user) -> WUser.findOne().where(id: user.id)
+      .then updater = (user) -> 
         console.log JSON.stringify(user)
         WUser.update({id: user.id}, update_to)
-      .then (users) -> 
+      .then deleter = (users) -> 
         console.log JSON.stringify(users[0])
         WUser.destroy(id: users[0].id)
       .then ->
