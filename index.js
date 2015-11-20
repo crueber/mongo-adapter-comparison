@@ -1,9 +1,9 @@
 require('coffee-script/register')
 require('colors')
 
-m1 = require('./mongodb/index')
-m2 = require('./mongoose/index')
-m3 = require('./waterline/index')
+mongodb_test = require('./mongodb/index')
+mongoose_test = require('./mongoose/index')
+waterline_test = require('./waterline/index')
 
 console.log("Started.")
 var start = new Date()
@@ -19,11 +19,11 @@ if (!process.argv[2] || process.argv[2] == '--serial'){
   // This is the "Serial" method, to let them all run one at a time. 
   // So they all have the same resources. Most accurate results.
   wrapper()
-  .then(m1)
+  .then(mongodb_test)
   .then(wrapper)
-  .then(m2)
+  .then(mongoose_test)
   .then(wrapper)
-  .then(m3)
+  .then(waterline_test)
   .then(wrapper)
   .then(function() {
     cl(("Complete. " + (new Date - start) + "ms").bgGreen.black)
@@ -38,7 +38,7 @@ if (!process.argv[2] || process.argv[2] == '--serial'){
 
 else if (process.argv[2] && process.argv[2] == '--parallel'){
   // This is the "Asynchronous" way to get them all to connect at the same time.
-  Promise.all([m1(), m2(), m3()])
+  Promise.all([mongodb_test(), mongoose_test(), waterline_test()])
   .then(function() {
     cl(("Complete. " + (new Date - start) + "ms").bgGreen.black)
     process.exit(0)
