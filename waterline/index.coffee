@@ -45,14 +45,20 @@ module.exports = runner = ->
 
       # Run the CRUD tests.
       found_user = null
-      creater = WUser.create(user_json)
-      .then reader = (user) -> WUser.findOne().where(id: user.id)
-      .then updater = (user) -> 
+      creater =  -> WUser.create(user_json)
+      reader = (user) -> WUser.findOne().where(id: user.id)
+      updater = (user) -> 
         console.log JSON.stringify(user)
         WUser.update({id: user.id}, update_to)
-      .then deleter = (users) -> 
+      deleter = (users) -> 
         console.log JSON.stringify(users[0])
         WUser.destroy(id: users[0].id)
+
+      Promise.resolve()
+      .then creater
+      .then reader
+      .then updater
+      .then deleter
       .then ->
         console.log "Waterline CRUD completed in #{new Date() - checkpoint}ms (#{new Date() - start}ms total)".cyan
         done()

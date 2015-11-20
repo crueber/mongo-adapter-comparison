@@ -27,16 +27,23 @@ module.exports = runner = ->
       console.log "Mongoose started. #{checkpoint - start}ms".cyan
 
       # Run the CRUD tests.
-      Promise.resolve()
-      .then creater = -> new MUser(user_json).save()
-      .then reader = (user) -> MUser.findById(user.id).exec()
-      .then updater = (user) -> 
+      creater = -> 
+        new MUser(user_json).save()
+      reader = (user) -> 
+        MUser.findById(user.id).exec()
+      updater = (user) -> 
         console.log JSON.stringify(found_user = user)
         MUser.update({_id: found_user.id}, update_to).exec()
-      .then -> MUser.findById(found_user.id).exec()
-      .then deleter = (user) -> 
+      deleter = (user) -> 
         console.log JSON.stringify(user)
         MUser.remove(_id: user.id).exec()
+
+      Promise.resolve()
+      .then creater
+      .then reader
+      .then updater
+      .then -> MUser.findById(found_user.id).exec()
+      .then deleter
       .then -> 
         console.log "Mongoose CRUD completed in #{new Date() - checkpoint}ms (#{new Date() - start}ms total)".cyan
         done()

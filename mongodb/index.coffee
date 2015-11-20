@@ -20,15 +20,23 @@ module.exports = runner = ->
       user = db.collection('user')
 
       # Run the CRUD tests.
-      creater = user.insertOne(user_json)
-      .then reader = (result) -> user.find(name: user_json.name).toArray()
-      .then updater = (users) -> 
+      creater = -> 
+        user.insertOne(user_json)
+      reader = (result) -> 
+        user.find(name: user_json.name).toArray()
+      updater = (users) -> 
         console.log JSON.stringify(found_user = users[0])
         user.updateOne({ _id: found_user._id }, { $set: update_to })
-      .then (result) -> user.find(_id: found_user._id).toArray()
-      .then deleter = (users) -> 
+      deleter = (users) -> 
         console.log JSON.stringify(users[0])
         user.deleteOne({_id: found_user._id })
+
+      Promise.resolve()
+      .then creater
+      .then reader
+      .then updater
+      .then (result) -> user.find(_id: found_user._id).toArray()
+      .then deleter
       .then ->
         console.log "Direct MongoDB CRUD completed in #{new Date() - checkpoint}ms (#{new Date() - start}ms total)".cyan
         db.close()
