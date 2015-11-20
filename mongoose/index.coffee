@@ -26,7 +26,7 @@ module.exports = runner = ->
       checkpoint = new Date()
       console.log "Mongoose started. #{checkpoint - start}ms".cyan
 
-      # Run the CRUD tests.
+      # Setup the CRUD tests.
       creater = -> 
         new MUser(user_json).save()
       reader = (user) -> 
@@ -38,6 +38,7 @@ module.exports = runner = ->
         console.log JSON.stringify(user)
         MUser.remove(_id: user.id).exec()
 
+      # Run the CRUD tests.
       Promise.resolve()
       .then creater
       .then reader

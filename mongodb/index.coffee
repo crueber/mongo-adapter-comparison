@@ -19,7 +19,7 @@ module.exports = runner = ->
       found_user = null
       user = db.collection('user')
 
-      # Run the CRUD tests.
+      # Setup the CRUD tests.
       creater = -> 
         user.insertOne(user_json)
       reader = (result) -> 
@@ -31,6 +31,7 @@ module.exports = runner = ->
         console.log JSON.stringify(users[0])
         user.deleteOne({_id: found_user._id })
 
+      # Run the CRUD tests.
       Promise.resolve()
       .then creater
       .then reader

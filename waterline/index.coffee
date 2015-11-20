@@ -43,7 +43,7 @@ module.exports = runner = ->
       checkpoint = new Date()
       console.log "Waterline connected. #{checkpoint - start}ms".cyan
 
-      # Run the CRUD tests.
+      # Setup the CRUD tests.
       found_user = null
       creater =  -> WUser.create(user_json)
       reader = (user) -> WUser.findOne().where(id: user.id)
@@ -54,6 +54,7 @@ module.exports = runner = ->
         console.log JSON.stringify(users[0])
         WUser.destroy(id: users[0].id)
 
+      # Run the CRUD tests.
       Promise.resolve()
       .then creater
       .then reader
