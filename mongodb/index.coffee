@@ -1,5 +1,18 @@
-require('colors')
-MongoClient = require('mongodb').MongoClient
+###
+  MongoDB Direct Adapter usability "score chart"
+
+  * Configuration Required: Mongo URL only.
+  * Connection Pool Support: No.
+  * Model Required: No.
+  * "Class" Methods: No model. Unavailable from library. Would need Backbone.Model or something similar.
+  * "Instance" Methods: No model. Unavailable from library. Would need Backbone.Model or something similar.
+  * Promises and Callbacks Supported: True
+  * Use difficulty (0 (easy) to 5 (hard)): 2
+  * Flexibility (0 (none) to 5 (ultimate)): 4
+###
+
+require 'colors'
+{MongoClient} = require 'mongodb'
 
 # JSON to dump in to the DB
 user_json = name: "bob", age: 44, status: "D", groups: [ "money" ]

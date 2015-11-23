@@ -1,3 +1,16 @@
+###
+  MongoDB Direct Adapter usability "score chart"
+
+  * Configuration Required: Mongo URL, with adapter provided, and additional configuration.
+  * Connection Pool Support: Yup.
+  * Model Required: Yes, with extra configuration.
+  * "Class" Methods: Available.
+  * "Instance" Methods: Available.
+  * Promises and Callbacks Supported: True
+  * Use difficulty (0 (easy) to 5 (hard)): 4
+  * Flexibility (0 (none) to 5 (ultimate)):  2
+###
+
 require('colors')
 Waterline = require 'waterline'
 sailsmongo = require 'sails-mongo'

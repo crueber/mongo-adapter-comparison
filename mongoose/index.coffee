@@ -1,3 +1,16 @@
+###
+  MongoDB Direct Adapter usability "score chart"
+
+  * Configuration Required: Mongo URL only.
+  * Connection Pool Support: Yes.
+  * Model Required: Yes.
+  * "Class" Methods: Available.
+  * "Instance" Methods: Available.
+  * Promises and Callbacks Supported: True
+  * Use difficulty (0 (easy) to 5 (hard)): 3
+  * Flexibility (0 (none) to 5 (ultimate)): 3 
+###
+
 require('colors')
 mongoose = require 'mongoose'
 
