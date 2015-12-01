@@ -27,9 +27,7 @@ module.exports = runner = ->
     # General configuraiton for Waterline.
     waterline_config = 
       connections:
-        mongo: 
-          adapter: 'sails-mongo'
-          url: 'mongodb://localhost/tempwaterline'
+        mongo:  { "adapter": 'sails-mongo', "url": 'mongodb://localhost/tempwaterline' }
       adapters: { "sails-mongo": sailsmongo }
     waterline = new Waterline()
 
@@ -42,8 +40,8 @@ module.exports = runner = ->
       autoCreatedAt: false
       autoUpdatedAt: false
       attributes:
-        name: { type: 'string', required: true }
-        age: { type: 'integer', required: true }
+        name:   { type: 'string', required: true }
+        age:    { type: 'integer', required: true }
         status: { type: 'string', required: true }
         groups: { type: 'array' }
     waterline.loadCollection WUser

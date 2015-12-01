@@ -26,7 +26,7 @@ module.exports = runner = ->
     # Create a Model for Mongoose.
     userSchema = new mongoose.Schema
       name: { type: String }
-      age: { type: Number }
+      age:  { type: Number }
       status: String
       groups: Array
     MUser = mongoose.model('User', userSchema)

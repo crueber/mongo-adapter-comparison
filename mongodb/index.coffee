@@ -33,8 +33,7 @@ module.exports = runner = ->
       user = db.collection('user')
 
       # Setup the CRUD tests.
-      creater = -> 
-        user.insertOne(user_json)
+      creater = ->  user.insertOne(user_json)
       reader = (result) -> 
         user.find(name: user_json.name).toArray()
       updater = (users) -> 
