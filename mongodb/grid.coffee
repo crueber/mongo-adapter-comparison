@@ -16,16 +16,16 @@ file_name = 'mongodb.adapter.comparison.coffee'
 fs.unlinkSync file_to_export if fs.existsSync file_to_export
 
 module.exports = runner = ->
-  new Promise (res, rej) ->
+  new Promise (done, reject) ->
     console.log "GridFS test started.".cyan
     MongoClient.connect "mongodb://localhost:27017/tempmongodb", (err, db) ->
       gfs = GridFS(db, mongo)
 
       start = new Date()
-      o = gfs.createWriteStream filename: file_name
       i = fs.createReadStream file_to_import
+      o = gfs.createWriteStream filename: file_name
       i.pipe o
-      .on 'error', rej
+      .on 'error', reject
       .on 'close', (file) ->
 
         checkpoint = new Date()
@@ -33,13 +33,13 @@ module.exports = runner = ->
         i = gfs.createReadStream _id: file._id
         o = fs.createWriteStream file_to_export
         i.pipe o
-        .on 'error', rej
+        .on 'error', reject
         .on 'close', ->
           console.log "Pulled #{file_name} in #{new Date() - checkpoint}ms (total #{new Date() - start}ms)".cyan
           console.log "#{file_to_export} available."
 
           gfs.remove {_id: file._id}, (err) ->
             db.close()
-            res()
+            done()
 
 runner().catch console.err if !module.parent
