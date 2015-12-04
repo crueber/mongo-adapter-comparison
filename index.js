@@ -2,6 +2,7 @@ require('coffee-script/register')
 require('colors')
 
 mongodb_test = require('./mongodb/index')
+gridfs_test = require('./mongodb/grid')
 mongoose_test = require('./mongoose/index')
 waterline_test = require('./waterline/index')
 
@@ -25,6 +26,8 @@ if (!process.argv[2] || process.argv[2] == '--serial'){
   .then(wrapper)
   .then(waterline_test)
   .then(wrapper)
+  .then(gridfs_test)
+  .then(wrapper)
   .then(function() {
     cl(("Complete. " + (new Date - start) + "ms").bgGreen.black)
     process.exit(0)
@@ -38,7 +41,7 @@ if (!process.argv[2] || process.argv[2] == '--serial'){
 
 else if (process.argv[2] && process.argv[2] == '--parallel'){
   // This is the "Asynchronous" way to get them all to connect at the same time.
-  Promise.all([mongodb_test(), mongoose_test(), waterline_test()])
+  Promise.all([mongodb_test(), mongoose_test(), waterline_test(), gridfs_test()])
   .then(function() {
     cl(("Complete. " + (new Date - start) + "ms").bgGreen.black)
     process.exit(0)

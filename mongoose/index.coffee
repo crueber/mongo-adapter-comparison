@@ -29,6 +29,11 @@ module.exports = runner = ->
       age:  { type: Number }
       status: String
       groups: Array
+    userSchema.post 'save', (sub) ->
+      console.log 'Called after save.'
+    userSchema.pre 'save', (next) -> 
+      console.log 'Called before save.'
+      next()
     MUser = mongoose.model('User', userSchema)
 
     # Configuration and connection to MongoDB
